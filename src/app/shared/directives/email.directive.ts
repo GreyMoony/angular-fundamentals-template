@@ -1,4 +1,4 @@
-import { Directive } from "@angular/core";
+import { Directive, forwardRef } from "@angular/core";
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from "@angular/forms";
 
 export function EmailValidator(): ValidatorFn {
@@ -20,7 +20,7 @@ export function EmailValidator(): ValidatorFn {
     providers: [
         {
             provide: NG_VALIDATORS,
-            useExisting: EmailValidatorDirective,
+            useExisting: forwardRef(() => EmailValidatorDirective),
             multi: true,
         },
     ]
