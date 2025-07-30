@@ -6,14 +6,45 @@
         <div class="form__control">
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <input
+            type="text" 
+            id="email" 
+            placeholder="Input text" 
+            required 
+            appEmailValidator 
+            ngModel
+            #email="ngModel"
+            [class.invalid]="(email.invalid && (email.touched || loginForm.submitted))"/>
+          <span
+            id="emailErrorMessage"
+            class="text-danger"
+            *ngIf="email.errors?.['required'] && (email.touched || loginForm.submitted)"
+          >
+            Email is required.
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="email.errors?.['invalidEmail'] && (email.touched || loginForm.submitted)"
+          >
+            Invalid email format.
+          </span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
           <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <input
+             type="password" 
+             id="password" 
+             placeholder="Input text"
+             required
+             ngModel
+             #password="ngModel"
+             [class.invalid]="(password.invalid && (password.touched || loginForm.submitted))"
+          />
+          <span 
+            id="passwordErrorMessage"
+            class="text-danger"
+            *ngIf="password.errors?.['required'] && (password.touched || loginForm.submitted)">Password is required.</span>
         </div>
       </div>
       <div>

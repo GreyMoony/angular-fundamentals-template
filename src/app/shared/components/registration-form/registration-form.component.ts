@@ -1,12 +1,31 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator } from '@app/shared/directives/email.directive';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss'],
 })
-export class RegistrationFormComponent {
+export class RegistrationFormComponent implements OnInit  {
   registrationForm!: FormGroup;
-  // Use the names `name`, `email`, `password` for the form controls.
+  formSubmitted = false;
+
+  constructor(private readonly fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.registrationForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, EmailValidator()]],
+      password: ['', Validators.required]
+    });
+  }
+
+  onSubmit(): void {
+    this.formSubmitted = true;
+    if (this.registrationForm.valid) {
+      // Handle success (e.g., send to server)
+      console.log(this.registrationForm.value);
+    }
+  }
 }
