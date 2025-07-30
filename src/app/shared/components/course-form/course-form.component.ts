@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder, FormGroup, FormControl, Validators, FormArray, AbstractControl
+  FormBuilder, FormGroup, Validators, FormArray, AbstractControl
 } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
