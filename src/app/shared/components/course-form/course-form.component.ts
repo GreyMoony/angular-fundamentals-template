@@ -44,7 +44,7 @@ export class CourseFormComponent {
   }
   
   get newAuthorControl(): AbstractControl | null {
-    return this.courseForm.get('newAuthor.name');
+    return this.courseForm.get('newAuthor.author');
   }
 
   get duration(): number {

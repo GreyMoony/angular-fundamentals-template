@@ -12,7 +12,7 @@
             name="email"
             placeholder="Input text" 
             required 
-            appEmailValidator 
+            emailValidator 
             ngModel
             #email="ngModel"
             [class.invalid]="(email.invalid && (email.touched || loginForm.submitted))"/>
