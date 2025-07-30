@@ -27,7 +27,7 @@ export class CourseFormComponent {
       duration: [0, [Validators.required, Validators.min(1)]],
       authors: this.fb.array([]), // selected course authors
       newAuthor: this.fb.group({
-        name: [
+        author: [
           '',
           [Validators.minLength(2), Validators.pattern(/^[a-zA-Z0-9 ]+$/)],
         ],
