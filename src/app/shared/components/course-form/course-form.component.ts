@@ -26,12 +26,10 @@ export class CourseFormComponent {
       description: ['', [Validators.required, Validators.minLength(2)]],
       duration: [0, [Validators.required, Validators.min(1)]],
       authors: this.fb.array([]), // selected course authors
-      newAuthor: this.fb.group({
-        author: [
-          '',
-          [Validators.minLength(2), Validators.pattern(/^[a-zA-Z0-9 ]+$/)],
-        ],
-      }),
+      author: [
+        '',
+        [Validators.minLength(2), Validators.pattern(/^[a-zA-Z0-9 ]+$/)], // Validation for the "author" field
+      ],
     });
   }
 
@@ -39,18 +37,14 @@ export class CourseFormComponent {
     return this.courseForm.get('authors') as FormArray;
   }
 
-  get newAuthorGroup(): FormGroup {
-  return this.courseForm.get('newAuthor') as FormGroup;
-  }
-  
   get newAuthorControl(): AbstractControl | null {
-    return this.courseForm.get('newAuthor.author');
+    return this.courseForm.get('author');
   }
 
   get duration(): number {
     return this.courseForm.get('duration')?.value || 0;
   }
-  
+
   createCourse(): void {
     this.formSubmitted = true;
     if (this.courseForm.valid) {
@@ -63,7 +57,7 @@ export class CourseFormComponent {
     if (name && this.newAuthorControl?.valid) {
       const newAuthor = { id: uuidv4(), name };
       this.allAuthors.push(newAuthor);
-      this.courseForm.get('newAuthor')?.reset();
+      this.newAuthorControl?.reset();
     }
   }
 
@@ -84,6 +78,6 @@ export class CourseFormComponent {
     const control = this.courseForm.get(controlName);
     return control && (control.touched || this.formSubmitted) && control.invalid;
   }
-  
+
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
 }

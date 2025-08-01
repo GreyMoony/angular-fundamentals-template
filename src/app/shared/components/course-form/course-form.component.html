@@ -6,32 +6,39 @@
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" formControlName="title" placeholder="Input text"/>
+        <input type="text" id="title" formControlName="title" placeholder="Input text" />
         <span id="titleErrorMessage" class="text-danger" *ngIf="showError('title')">Title is required.</span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
         <!--Use the name `description` for the form control.-->
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Input text"
-          rows="4"
-          cols="5"
-          formControlName="description"
-        ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger" *ngIf="showError('description')">Description is required.</span>
+        <textarea id="description" name="description" placeholder="Input text" rows="4" cols="5"
+          formControlName="description"></textarea>
+        <span id="descriptionErrorMessage" class="text-danger" *ngIf="showError('description')">Description is
+          required.</span>
       </div>
       <div class="separator"></div>
-      <h3>Authors</h3>
       <div class="form__control">
-        <div class="course__flex" [formGroup]="newAuthorGroup">
+        <div class="course__flex" >
+          <h3>Authors</h3>
           <input type="text" id="author" formControlName="author" placeholder="Input Author Name" />
-          <app-button text="Create Author" (click)="createAuthor()" (keydown)="createAuthor()" type="button"></app-button>
+          <app-button text="Create Author" (click)="createAuthor()" (keydown)="createAuthor()"
+            type="button"></app-button>
+          <span id="authorErrorMessage" class="text-danger"
+            *ngIf="newAuthorControl?.touched && newAuthorControl?.invalid">
+            New author must be at least 2 characters, only latin letters and numbers.
+          </span>
         </div>
-        <span class="text-danger" *ngIf="newAuthorControl?.touched && newAuthorControl?.invalid">
-          New author must be at least 2 characters, only latin letters and numbers.
-        </span>
+
+        <div class="course__authors">
+          <h4>Course Authors</h4>
+          <div *ngFor="let authorCtrl of authorsArray.controls; let i = index" class="course__authors-item">
+            <input type="text" [value]="authorCtrl.value.name" disabled />
+            <fa-icon class="course__icon" [icon]="['fas', 'trash']"
+              (keydown)="removeAuthorFromCourse(authorCtrl.value, i)"
+              (click)="removeAuthorFromCourse(authorCtrl.value, i)"></fa-icon>
+          </div>
+        </div>
       </div>
 
       <div class="course__flex">
@@ -40,20 +47,8 @@
           <div class="course__authors">
             <div *ngFor="let author of allAuthors" class="course__authors-item">
               {{ author.name }}
-              <fa-icon class="course__icon" [icon]="['fas', 'plus']" (keydown)="addAuthorToCourse(author)" (click)="addAuthorToCourse(author)"></fa-icon>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h4>Course Authors</h4>
-          <div class="course__authors">
-            <div
-              *ngFor="let authorCtrl of authorsArray.controls; let i = index"
-              class="course__authors-item"
-            >
-              <input type="text" [value]="authorCtrl.value.name" disabled />
-              <fa-icon class="course__icon" [icon]="['fas', 'trash']" (keydown)="removeAuthorFromCourse(authorCtrl.value, i)" (click)="removeAuthorFromCourse(authorCtrl.value, i)"></fa-icon>
+              <fa-icon class="course__icon" [icon]="['fas', 'plus']" (keydown)="addAuthorToCourse(author)"
+                (click)="addAuthorToCourse(author)"></fa-icon>
             </div>
           </div>
         </div>
@@ -63,7 +58,7 @@
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration" formControlName="duration"/>
+          <input type="number" id="duration" placeholder="Input duration" formControlName="duration" />
           <div class="course__duration">
             {{ duration | duration }} hours
           </div>
