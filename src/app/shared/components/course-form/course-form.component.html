@@ -19,7 +19,7 @@
       </div>
       <div class="separator"></div>
       <div class="form__control">
-        <div class="course__flex" >
+        <div class="course__flex">
           <h3>Authors</h3>
           <input type="text" id="author" formControlName="author" placeholder="Input Author Name" />
           <app-button text="Create Author" (click)="createAuthor()" (keydown)="createAuthor()"
@@ -47,8 +47,9 @@
           <div class="course__authors">
             <div *ngFor="let author of allAuthors" class="course__authors-item">
               {{ author.name }}
-              <fa-icon class="course__icon" [icon]="['fas', 'plus']" (keydown)="addAuthorToCourse(author)"
-                (click)="addAuthorToCourse(author)"></fa-icon>
+              <button class="btn-add-author" (click)="addAuthorToCourse(author)" type="button">
+                <fa-icon class="course__icon" [icon]="['fas', 'plus']"></fa-icon>
+              </button>
             </div>
           </div>
         </div>
