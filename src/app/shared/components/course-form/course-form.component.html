@@ -34,7 +34,7 @@
           <h4>Course Authors</h4>
           <div *ngFor="let authorCtrl of authorsArray.controls; let i = index" class="course__authors-item">
             <input type="text" [value]="authorCtrl.value.name" disabled />
-            <button id="removeAuthor" (keydown)="removeAuthorFromCourse(authorCtrl.value, i)"
+            <button (keydown)="removeAuthorFromCourse(authorCtrl.value, i)"
               (click)="removeAuthorFromCourse(authorCtrl.value, i)">
               <fa-icon class="course__icon" [icon]="['fas', 'trash']"></fa-icon>
             </button>
@@ -48,7 +48,7 @@
           <div class="course__authors">
             <div *ngFor="let author of allAuthors" class="course__authors-item">
               {{ author.name }}
-              <button id="addAuthor" class="btn-add-author" (keydown)="addAuthorToCourse(author)"
+              <button class="btn-add-author" (keydown)="addAuthorToCourse(author)"
                 (click)="addAuthorToCourse(author)" type="button">
                 <fa-icon class="course__icon" [icon]="['fas', 'plus']"></fa-icon>
               </button>
