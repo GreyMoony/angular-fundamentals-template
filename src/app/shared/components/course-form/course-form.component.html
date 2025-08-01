@@ -47,9 +47,9 @@
           <div class="course__authors">
             <div *ngFor="let author of allAuthors" class="course__authors-item">
               {{ author.name }}
-              <button class="btn-add-author" (click)="addAuthorToCourse(author)" type="button">
+              <app-button class="btn-add-author" (keydown)="addAuthorToCourse(author)" (click)="addAuthorToCourse(author)" type="button">
                 <fa-icon class="course__icon" [icon]="['fas', 'plus']"></fa-icon>
-              </button>
+              </app-button>
             </div>
           </div>
         </div>
