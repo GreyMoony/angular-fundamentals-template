@@ -7,30 +7,30 @@
           <label for="name">Name</label>
           <!--Use the name `name` for the form control.-->
           <input type="text" id="name" placeholder="Input text" formControlName="name" />
-          <span
-            *ngIf="(registrationForm.get('name')?.touched || formSubmitted) && registrationForm.get('name')?.hasError('required')"
+          <span id="nameErrorMessage"
+            *ngIf="(registrationForm.get('name')?.touched || formSubmitted) && registrationForm.get('name')?.invalid"
             class="text-danger">
-            Name is required.
-          </span>
-          <span
-            *ngIf="(registrationForm.get('name')?.touched || formSubmitted) && registrationForm.get('name')?.hasError('minlength')"
-            class="text-danger">
-            Name must be at least 6 characters.
+            <ng-container *ngIf="registrationForm.get('name')?.hasError('required')">
+              Name is required.
+            </ng-container>
+            <ng-container *ngIf="registrationForm.get('name')?.hasError('minlength')">
+              Name must be at least 6 characters.
+            </ng-container>
           </span>
         </div>
         <div class="form__control">
           <!--Use the name `email` for the form control.-->
           <label for="email">Email</label>
           <input type="text" id="email" placeholder="Input text" formControlName="email" emailValidator />
-          <span
-            *ngIf="(registrationForm.get('email')?.touched || formSubmitted) && registrationForm.get('email')?.hasError('required')"
+          <span id="emailErrorMessage"
+            *ngIf="(registrationForm.get('email')?.touched || formSubmitted) && registrationForm.get('email')?.invalid"
             class="text-danger">
-            Email is required.
-          </span>
-          <span
-            *ngIf="(registrationForm.get('email')?.touched || formSubmitted) && registrationForm.get('email')?.hasError('invalidEmail')"
-            class="text-danger">
-            Email is invalid.
+            <ng-container *ngIf="registrationForm.get('email')?.hasError('required')">
+              Email is required.
+            </ng-container>
+            <ng-container *ngIf="registrationForm.get('email')?.hasError('invalidEmail')">
+              Email is invalid.
+            </ng-container>
           </span>
         </div>
         <div class="form__control">
