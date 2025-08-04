@@ -18,7 +18,7 @@ export class CoursesService {
 
         for (const [key, value] of params.entries()) {
             if (['description', 'title', 'duration', 'creationDate'].includes(key)) {
-                filters[key as FilterKey] = value.split(',').map(v => v.trim());
+                filters[key as FilterKey] = value.split(',').map((v: string) => v.trim());
             }
         }
 
