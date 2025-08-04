@@ -1,19 +1,38 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserStoreService {
+    private readonly name$$ = new BehaviorSubject<string | null>(null);
+    private readonly isAdmin$$ = new BehaviorSubject<boolean>(false);
+
+    public name$ = this.name$$.asObservable();
+    public isAdmin$ = this.isAdmin$$.asObservable();
+
+    constructor(private readonly userService: UserService) { }
 
     getUser() {
-        // Add your code here
+        this.userService.getUser().subscribe({
+            next: (response) => {
+                const user = response.result;
+                this.name$$.next(user.name ?? user.email);
+                this.isAdmin$$.next(user.role.toLowerCase() === 'admin');
+            },
+            error: () => {
+                this.name$$.next(null);
+                this.isAdmin$$.next(false);
+            },
+        });
     }
 
     get isAdmin() {
-        // Add your code here. Get isAdmin$$ value
+        return this.isAdmin$$.value;
     }
 
     set isAdmin(value: boolean) {
-        // Add your code here. Change isAdmin$$ value
+        this.isAdmin$$.next(value);
     }
 }
