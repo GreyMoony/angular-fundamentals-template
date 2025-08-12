@@ -11,6 +11,7 @@ import { CoursesService } from '@app/services/courses.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+import { WINDOW } from './auth/services/window.token';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -25,7 +26,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     NotAuthorizedGuard,
     CoursesService,
     CoursesStoreService,
-    { provide: Window, useValue: window },
+    { provide: WINDOW, useValue: window },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
