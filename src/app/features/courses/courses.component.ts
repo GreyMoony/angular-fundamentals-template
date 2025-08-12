@@ -10,7 +10,6 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
 })
 export class CoursesComponent {
   constructor(private readonly coursesStroreService: CoursesStoreService){ }
-  
   courses : Course[] = mockedCoursesList;
   onSearchCourses(query: string): void {
     console.log('User searched:', query);
