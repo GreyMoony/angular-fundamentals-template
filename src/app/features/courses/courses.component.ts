@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { mockedCoursesList } from '@app/shared/mocks/mocks';
 import { Course } from './courses-list/courses-list.component';
-import { CoursesStoreService } from '@app/services/courses-store.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-courses',
@@ -9,10 +9,18 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
-  constructor(private readonly coursesStroreService: CoursesStoreService){ }
-  courses : Course[] = mockedCoursesList;
+  courses: Course[] = [];
+
+  constructor(private readonly coursesStateFacade: CoursesStateFacade) {
+    this.coursesStateFacade.getAllCourses();
+    this.coursesStateFacade.allCourses$.subscribe(courses => {
+      this.courses = courses;
+    })
+  }
+
   onSearchCourses(query: string): void {
     console.log('User searched:', query);
     // Implement actual filtering logic or call a service
+    this.coursesStateFacade.getFilteredCourses(query);
   }
 }

@@ -12,6 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { WINDOW } from './auth/services/window.token';
+import { StoreModule } from '@ngrx/store';
+import { effects, reducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -20,6 +23,8 @@ import { WINDOW } from './auth/services/window.token';
     SharedModule,
     FontAwesomeModule,
     AppRoutingModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects)
   ],
   providers: [
     AuthorizedGuard,
